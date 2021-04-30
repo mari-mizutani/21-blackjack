@@ -60,39 +60,73 @@ document.getElementById("hit").addEventListener("click", function() {
     //if the total become over 21, says 'BUST'
     if(getHandValue(playerHand)>21){
         document.getElementById("player-hand-value").innerHTML = getHandValue(playerHand)  + "  BUST!"; 
+        document.getElementById("player-hand").innerHTML = playerHand; 
         //show the total values 
         document.getElementById("dealer-hand-value").innerHTML = getHandValue(dealerHand); 
         document.getElementById("dealer-hand").innerHTML = dealerHand; 
-    }else{
+        
+    }else if((getHandValue(playerHand)<21) && (getHandValue(dealerHand)==21)){
+        document.getElementById("player-hand-value").innerHTML = getHandValue(playerHand)+ "  YOU LOST!"; 
+        document.getElementById("player-hand").innerHTML = playerHand; 
+        document.getElementById("dealer-hand-value").innerHTML = getHandValue(dealerHand); 
+        document.getElementById("dealer-hand").innerHTML = dealerHand; 
+
+    }else if((getHandValue(playerHand)<21) && (getHandValue(dealerHand)<21)){
+        document.getElementById("player-hand").innerHTML = playerHand; 
         document.getElementById("player-hand-value").innerHTML = getHandValue(playerHand); 
     }
-    
+    else if((getHandValue(playerHand)<21) && (getHandValue(dealerHand)>21)){
+        document.getElementById("player-hand-value").innerHTML = getHandValue(playerHand) + "  WIN!"; 
+        document.getElementById("player-hand").innerHTML = playerHand; 
+        document.getElementById("dealer-hand-value").innerHTML = getHandValue(dealerHand) + "  BUST!"; 
+        document.getElementById("dealer-hand").innerHTML = dealerHand; 
+    }
+    else if((getHandValue(playerHand)=21) && (getHandValue(dealerHand)>21)){
+        document.getElementById("player-hand-value").innerHTML = getHandValue(playerHand) + "  WIN!"; 
+        document.getElementById("player-hand").innerHTML = playerHand; 
+        document.getElementById("dealer-hand-value").innerHTML = getHandValue(dealerHand) + "  BUST!"; 
+        document.getElementById("dealer-hand").innerHTML = dealerHand; 
+    }
+
 });
 
 
 //STAND
 document.getElementById("stand").addEventListener("click", function() {  
-    //if the total become over 21, says 'BUST'
-    if(getHandValue(playerHand)<21 && 21 - getHandValue(playerHand) < 21 - getHandValue(dealerHand)){
+    
+    if((getHandValue(playerHand)<=21) && ((21 - getHandValue(playerHand) )< (21 - getHandValue(dealerHand)))){
         document.getElementById("player-hand-value").innerHTML = getHandValue(playerHand)  + "  WIN!"; 
+        document.getElementById("player-hand").innerHTML = playerHand; 
         document.getElementById("dealer-hand").innerHTML = dealerHand; 
         document.getElementById("dealer-hand-value").innerHTML = getHandValue(dealerHand);
     }
-    else if(getHandValue(playerHand)<21 && getHandValue(dealerHand>21)){
+    else if((getHandValue(playerHand)<=21) && (getHandValue(dealerHand>21))){
         document.getElementById("player-hand-value").innerHTML = getHandValue(playerHand)  + "  WIN!"; 
+        document.getElementById("player-hand").innerHTML = playerHand; 
         document.getElementById("dealer-hand").innerHTML = dealerHand; 
         document.getElementById("dealer-hand-value").innerHTML = getHandValue(dealerHand);
     }
-    else if(getHandValue(playerHand)>21 && getHandValue(dealerHand<21)){
-        document.getElementById("player-hand-value").innerHTML = getHandValue(playerHand)  + "  LOSE!"; 
+    else if((getHandValue(playerHand)>21) && (getHandValue(dealerHand<=21))){
+        document.getElementById("player-hand-value").innerHTML = getHandValue(playerHand)  + "  LOST!"; 
         document.getElementById("dealer-hand").innerHTML = dealerHand; 
         document.getElementById("dealer-hand-value").innerHTML = getHandValue(dealerHand);
     }
-    else if(21 - getHandValue(playerHand) == 21 - getHandValue(dealerHand)){
+    else if((21 - getHandValue(playerHand)) == (21 - getHandValue(dealerHand))){
         document.getElementById("player-hand-value").innerHTML = getHandValue(playerHand)  + "  TIE!"; 
+        document.getElementById("player-hand").innerHTML = playerHand; 
         document.getElementById("dealer-hand").innerHTML = dealerHand; 
         document.getElementById("dealer-hand-value").innerHTML = getHandValue(dealerHand);
     }
 
 });
 
+
+//RESET
+document.getElementById("reset").addEventListener("click", function() { 
+    getHandValue(playerHand)*0;
+    getHandValue(dealerHand)*0;
+    document.getElementById("player-hand").innerHTML =  "Player's Hand"; 
+    document.getElementById("player-hand-value").innerHTML = "";
+    document.getElementById("dealer-hand").innerHTML = "Dealer's Hand";     
+    document.getElementById("dealer-hand-value").innerHTML = "";
+});
